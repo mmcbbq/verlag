@@ -8,6 +8,8 @@ class Author
     private DateTime $bday;
     private string $country;
 
+    private array $books;
+
     /**
      * @param DateTime $bday
      * @param string $country
