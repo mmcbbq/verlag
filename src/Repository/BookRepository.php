@@ -85,7 +85,7 @@ class BookRepository
         $data = $stm->fetchAll(PDO::FETCH_ASSOC);
         $return = [];
         foreach ($data as $item) {
-            $return[]=new Book($item['category'], $item['hardcover'], $item['isbn'], $item['pages'], $item['price'], $item['publication_date'], $item['title'],$item['author_id'], $item['id']);
+            $return[]=$item['id'];
         }
 
         return $return;
@@ -127,7 +127,7 @@ $authrepo = new AuthorRepository();
 
 //test getbyAuthor
 $author = $authrepo->findById(2);
-var_dump($author);
+var_dump($author->getBooks());
 //$books = $repo->findByAuthor($author);
 //var_dump($books[0]->getTitle());
 

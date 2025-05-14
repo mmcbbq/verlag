@@ -74,6 +74,17 @@ class Author
         $this->lname = $lname;
     }
 
+    public function getBooks(): array
+    {
+        return $this->books;
+    }
+
+    public function setBooks(array $books): void
+    {
+        $this->books = $books;
+    }
+
+
 
 
 
