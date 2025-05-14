@@ -2,7 +2,6 @@
 
 class AuthorRepository
 {
-
     public function Dbcon():PDO
     {
         return new PDO("mysql:host=localhost;dbname=verlag;charset=utf8mb4", 'root', '');
@@ -65,9 +64,7 @@ class AuthorRepository
         $stm->execute($data);
         $id = (int)$dbcon->lastInsertId();
         return $this->findById($id);
-
     }
-
 }
 
 
