@@ -31,7 +31,6 @@ class AuthorRepository
         $stm->bindParam(':id',$id);
         $stm->execute();
         $data = $stm->fetch(PDO::FETCH_ASSOC);
-
         return new Author($data['bday'],$data['country'],$data['fname'],$data['lname'],$data['id']);
     }
 
