@@ -95,11 +95,11 @@ class BookRepository
 
 
 }
-include '../Entity/Author.php';
-include '../Entity/Book.php';
-include 'AuthorRepository.php';
-$repo = new BookRepository();
-$authrepo = new AuthorRepository();
+//include '../Entity/Author.php';
+//include '../Entity/Book.php';
+//include 'AuthorRepository.php';
+//$repo = new BookRepository();
+//$authrepo = new AuthorRepository();
 //$book = $repo->findById(46);
 //$repo->remove($book);
 //test find all
@@ -126,8 +126,8 @@ $authrepo = new AuthorRepository();
 //$repo->update($book_uupdate);
 
 //test getbyAuthor
-$author = $authrepo->findById(2);
-var_dump($author->getBooks());
+//$author = $authrepo->findById(2);
+//var_dump($author->getBooks());
 //$books = $repo->findByAuthor($author);
 //var_dump($books[0]->getTitle());
 
