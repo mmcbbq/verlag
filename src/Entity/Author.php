@@ -24,6 +24,8 @@ class Author
         $this->fname = $fname;
         $this->id = $id;
         $this->lname = $lname;
+        $bookrepo = new BookRepository();
+        $this->books = $bookrepo->findByAuthor($this);
     }
 
     public function getBday(): DateTime

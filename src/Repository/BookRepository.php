@@ -126,7 +126,8 @@ $authrepo = new AuthorRepository();
 //$repo->update($book_uupdate);
 
 //test getbyAuthor
-//$author = $authrepo->findById(2);
+$author = $authrepo->findById(2);
+var_dump($author);
 //$books = $repo->findByAuthor($author);
 //var_dump($books[0]->getTitle());
 
