@@ -1,14 +1,17 @@
 <?php
+
 include '../../Entity/Author.php';
 include '../../Entity/Book.php';
 include '../../Repository/AuthorRepository.php';
 include '../../Repository/BookRepository.php';
 
 $repo = new AuthorRepository();
-$authoren = $repo->findall();
-
+//$author = $repo->findById(2);
+$bookrepo = new BookRepository();
+$book = $bookrepo->findById(1);
 
 ?>
+
 
 <!doctype html>
 <html lang='en'>
@@ -20,16 +23,18 @@ $authoren = $repo->findall();
     <title>Document</title>
 </head>
 <body>
-<div>
 <?php
-foreach ($authoren as $author) {
-    echo '<div>';
-    echo 'Vorname: '. $author->getFname();
-    echo '<br>';
-    echo 'Nachname: '. $author->getLname();
-    echo '</div>';
-}
+
+echo '<pre>';
+var_dump($_SERVER);
+echo '</pre>';
+
+echo $book->getTitle();
+echo '<br>';
+echo 'by ' .$book->getAuthor()->getLname();
+echo '<br>';
+echo 'erschienen ' .$book->getPublicationDate()->format('d-m-Y');
 ?>
-</div>
 </body>
 </html>
+

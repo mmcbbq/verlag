@@ -8,6 +8,9 @@ class BookRepository
         return new PDO("mysql:host=localhost;dbname=verlag;charset=utf8mb4", 'root', '');
     }
 
+    /**
+     * @return Book[]
+     */
     public function findall(): array
     {
         $dbcon = $this->Dbcon();

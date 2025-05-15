@@ -7,6 +7,9 @@ class AuthorRepository
         return new PDO("mysql:host=localhost;dbname=verlag;charset=utf8mb4", 'root', '');
     }
 
+    /**
+     * @return Author[]
+     */
     public function findall():array
     {
         $dbcon = $this->Dbcon();

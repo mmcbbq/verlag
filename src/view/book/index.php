@@ -5,10 +5,12 @@ include '../../Repository/AuthorRepository.php';
 include '../../Repository/BookRepository.php';
 
 $repo = new AuthorRepository();
-$authoren = $repo->findall();
-
+//$author = $repo->findById(2);
+$bookrepo = new BookRepository();
+$books = $bookrepo->findall();
 
 ?>
+
 
 <!doctype html>
 <html lang='en'>
@@ -20,16 +22,24 @@ $authoren = $repo->findall();
     <title>Document</title>
 </head>
 <body>
-<div>
 <?php
-foreach ($authoren as $author) {
-    echo '<div>';
-    echo 'Vorname: '. $author->getFname();
+$count =0;
+foreach ($books as $book) {
+    if ($count % 2 == 0){
+        $color = 'red';
+    } else{
+        $color = 'blue';
+    }
+    $count++;
+
+    echo "<div style='background-color: $color'>";
+    echo $book->getTitle();
     echo '<br>';
-    echo 'Nachname: '. $author->getLname();
+    echo $book->getAuthor()->getLname();
+    echo '<br>';
+    echo '<br>';
     echo '</div>';
 }
 ?>
-</div>
 </body>
 </html>

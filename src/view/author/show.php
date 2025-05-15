@@ -5,9 +5,8 @@ include '../../Repository/AuthorRepository.php';
 include '../../Repository/BookRepository.php';
 
 $repo = new AuthorRepository();
-$authoren = $repo->findall();
-
-
+$author = $repo->findById(2);
+$bookrepo = new BookRepository();
 ?>
 
 <!doctype html>
@@ -20,16 +19,17 @@ $authoren = $repo->findall();
     <title>Document</title>
 </head>
 <body>
-<div>
 <?php
-foreach ($authoren as $author) {
-    echo '<div>';
-    echo 'Vorname: '. $author->getFname();
-    echo '<br>';
-    echo 'Nachname: '. $author->getLname();
-    echo '</div>';
+echo '<div>';
+echo $author->getFname();
+echo '</div>';
+
+echo '<div>';
+foreach ($author->getBooks() as $bookid){
+    $book = $bookrepo->findById($bookid);
+    echo '<div> '. $book->getTitle() .'</div>';
 }
+echo '</div>'
 ?>
-</div>
 </body>
 </html>
