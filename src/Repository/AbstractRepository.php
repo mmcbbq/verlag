@@ -6,4 +6,7 @@ abstract class AbstractRepository
     {
         return new PDO("mysql:host=localhost;dbname=verlag;charset=utf8mb4", 'root', '');
     }
+    public function query($query, $data =[]):array
+
+
 }
