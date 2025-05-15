@@ -1,8 +1,16 @@
 <?php
-include '../../Entity/Author.php';
-include '../../Entity/Book.php';
-include '../../Repository/AuthorRepository.php';
-include '../../Repository/BookRepository.php';
+spl_autoload_register(function ($className) {
+    $className = str_replace('\\', '/', $className);
+    $dirs = array_diff(scandir('../../'));
+    var_dump($dirs);
+    foreach ($dirs as $dir) {
+        $fileName = stream_resolve_include_path( '../../'.$dir.'/'.$className . '.php');
+        if ($fileName !== false) {
+            include_once $fileName;
+        }
+
+    }
+});
 
 $repo = new AuthorRepository();
 $authoren = $repo->findall();

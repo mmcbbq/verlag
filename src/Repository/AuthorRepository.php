@@ -1,11 +1,8 @@
 <?php
 
-class AuthorRepository
+class AuthorRepository extends AbstractRepository
 {
-    public function Dbcon():PDO
-    {
-        return new PDO("mysql:host=localhost;dbname=verlag;charset=utf8mb4", 'root', '');
-    }
+
 
     /**
      * @return Author[]
@@ -19,13 +16,10 @@ class AuthorRepository
         $return = [];
         foreach ( $stm->fetchAll(PDO::FETCH_ASSOC) as $item) {
             $return[] = new Author($item['bday'],$item['country'],$item['fname'],$item['lname'],$item['id']);
-
         }
         return $return;
 
     }
-
-
     public function findById(int $id)
     {
         $dbcon = $this->Dbcon();
@@ -36,7 +30,6 @@ class AuthorRepository
         $data = $stm->fetch(PDO::FETCH_ASSOC);
         return new Author($data['bday'],$data['country'],$data['fname'],$data['lname'],$data['id']);
     }
-
     public function remove(Author $author):bool
     {
         $id = $author->getId();
