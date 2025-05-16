@@ -2,7 +2,6 @@
 spl_autoload_register(function ($className) {
     $className = str_replace('\\', '/', $className);
     $dirs = array_diff(scandir('../../'));
-    var_dump($dirs);
     foreach ($dirs as $dir) {
         $fileName = stream_resolve_include_path( '../../'.$dir.'/'.$className . '.php');
         if ($fileName !== false) {
@@ -13,9 +12,8 @@ spl_autoload_register(function ($className) {
 });
 
 $repo = new AuthorRepository();
-$authoren = $repo->findall();
-
-
+$author = new Author('2000-12-12','USA','George','Bush');
+$repo->create($author)
 ?>
 
 <!doctype html>
