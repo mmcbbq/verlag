@@ -2,19 +2,26 @@
 
 class BookRepository extends AbstractRepository
 {
-
     /**
      * @return Book[]
      */
     public function findall(): array
     {
-        $dbcon = $this->Dbcon();
+
         $sql = 'SELECT * FROM book';
-        $stm = $dbcon->prepare($sql);
-        $stm->execute();
+        $result = $this->query($sql);
         $return = [];
-        foreach ($stm->fetchAll(PDO::FETCH_ASSOC) as $item) {
-            $return[] = new Book($item['category'], $item['hardcover'], $item['isbn'], $item['pages'], $item['price'], $item['publication_date'], $item['title'],$item['author_id'], $item['id']);
+        foreach ($result as $item) {
+            $return[] = new Book(
+                $item['category'],
+                $item['hardcover'],
+                $item['isbn'],
+                $item['pages'],
+                $item['price'],
+                $item['publication_date'],
+                $item['title'],
+                $item['author_id'],
+                $item['id']);
         }
         return $return;
 
@@ -23,36 +30,59 @@ class BookRepository extends AbstractRepository
 
     public function findById(int $id)
     {
-        $dbcon = $this->Dbcon();
+        $data = [':id'=>$id];
         $sql = 'SELECT * FROM book where id = :id';
-        $stm = $dbcon->prepare($sql);
-        $stm->bindParam(':id', $id);
-        $stm->execute();
-        $item = $stm->fetch(PDO::FETCH_ASSOC);
-
-        return new Book($item['category'], $item['hardcover'], $item['isbn'], $item['pages'], $item['price'], $item['publication_date'], $item['title'],$item['author_id'], $item['id']);
+        $item = $this->query($sql,$data)[0];
+        return new Book(
+            $item['category'],
+            $item['hardcover'],
+            $item['isbn'],
+            $item['pages'],
+            $item['price'],
+            $item['publication_date'],
+            $item['title'],
+            $item['author_id'],
+            $item['id']);
     }
 
     public function create(Book $book): Book
     {
-        $data = [':isbn'=>$book->getIsbn(),':publication_date'=>$book->getPublicationDate()->format('Y-m-d'),'pages'=>$book->getPages(),'title'=>$book->getTitle(),'price'=>$book->getPrice(),'category'=>$book->getCategory(),'hardcover'=>$book->isHardcover(),'author_id'=>$book->getAuthor()->getId()];
+        $data = [':isbn'=>$book->getIsbn(),
+            ':publication_date'=>$book->getPublicationDate()->format('Y-m-d'),
+            'pages'=>$book->getPages(),'title'=>$book->getTitle(),
+            'price'=>$book->getPrice(),'category'=>$book->getCategory(),
+            'hardcover'=>$book->isHardcover(),
+            'author_id'=>$book->getAuthor()->getId()];
 
-        $dbcon = $this->Dbcon();
-        $sql = 'INSERT INTO book (isbn, publication_date, pages, title, price, category, hardcover, author_id ) values (:isbn, :publication_date, :pages, :title, :price, :category, :hardcover, :author_id)';
-        $stm = $dbcon->prepare($sql);
-        $stm->execute($data);
-        $id = (int)$dbcon->lastInsertId();
-        return $this->findById($id);
+        $sql = 'INSERT INTO book (
+                  isbn,
+                  publication_date,
+                  pages,
+                  title, price,
+                  category, hardcover,
+                  author_id ) values (
+                                      :isbn,
+                                      :publication_date,
+                                      :pages,
+                                      :title,
+                                      :price,
+                                      :category,
+                                      :hardcover,
+                                      :author_id)';
+
+
+        $result = $this->query($sql,$data);
+        return $this->findById($result['id']);
     }
 
 
     public function update(Book $book):Book
     {
         $data = [':isbn'=>$book->getIsbn(),':publication_date'=>$book->getPublicationDate()->format('Y-m-d'),'pages'=>$book->getPages(),'title'=>$book->getTitle(),'price'=>$book->getPrice(),'category'=>$book->getCategory(),'hardcover'=>$book->isHardcover(),'author_id'=>$book->getAuthor()->getId(),'id'=>$book->getId()];
-        $dbcon = $this->Dbcon();
+
         $sql = 'UPDATE book set isbn = :isbn, publication_date= :publication_date, pages = :pages, title = :title, price = :price, category =:category, hardcover= :hardcover, author_id = :author_id where id = :id';
-        $stm = $dbcon->prepare($sql);
-        $stm->execute($data);
+
+        $this->query($sql,$data);
         return $this->findById($book->getId());
     }
 

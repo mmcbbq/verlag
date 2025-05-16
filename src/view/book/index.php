@@ -1,13 +1,25 @@
 <?php
-include '../../Entity/Author.php';
-include '../../Entity/Book.php';
-include '../../Repository/AuthorRepository.php';
-include '../../Repository/BookRepository.php';
+
+spl_autoload_register(function ($className) {
+    $className = str_replace('\\', '/', $className);
+    $dirs = array_diff(scandir('../../'));
+    foreach ($dirs as $dir) {
+        $fileName = stream_resolve_include_path( '../../'.$dir.'/'.$className . '.php');
+        if ($fileName !== false) {
+            include_once $fileName;
+        }
+
+    }
+});
 
 $repo = new AuthorRepository();
 //$author = $repo->findById(2);
 $bookrepo = new BookRepository();
-$books = $bookrepo->findall();
+
+$book = new Book('sdffs',true,'sdafsdf',123,18.00,'2000-02-01','super',1,);
+$updateBook = $bookrepo->findById(4);
+$updateBook->setIsbn('2r-9-35729864590687345906');
+$books = $bookrepo->update($updateBook);
 
 ?>
 
