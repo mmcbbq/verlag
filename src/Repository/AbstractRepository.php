@@ -27,6 +27,9 @@ abstract class AbstractRepository
 
     }
 
+    /**
+     * @return EntityInterface[]
+     */
     public function findall(): array
     {
         $sql = "SELECT * FROM $this->tablename";
@@ -39,47 +42,70 @@ abstract class AbstractRepository
 
     }
 
-    public function findById(int $id):Object
+    /**
+     * @param int $id
+     * @return EntityInterface
+     */
+    public function findById(int $id): EntityInterface
     {
 
         $sql = "SELECT * FROM $this->tablename where id = :id";
-        $sqldata = [':id'=>$id];
-        $data = $this->query($sql,$sqldata)[0];
+        $sqldata = [':id' => $id];
+        $data = $this->query($sql, $sqldata)[0];
         return new $this->tablename($data);
     }
 
 
-    public function remove(Object $obj):bool
+    public function remove(object $obj): bool
     {
 
         $sql = "DELETE FROM $this->tablename where id = :id";
-        $data = [':id'=>$obj->getId()];
-        $result = $this->query($sql,$data);
+        $data = [':id' => $obj->getId()];
+        $result = $this->query($sql, $data);
         return ($result === []);
 
     }
 
 
-
-    public function update(EntityInterface $obj):EntityInterface
+    public function update(EntityInterface $obj): EntityInterface
     {
         $data = $obj->mapToArray();
         $keys = array_keys($data);
         $string = ''; //':fname', ':lname' -> 'fname = :fname, lname = :lname'
-        foreach ($keys as $index=>$key) {
-            if ($key === ':id'){
+        foreach ($keys as $index => $key) {
+            if ($key === ':id') {
                 continue;
             }
-            $spalte = str_replace(':','',$key);
+            $spalte = str_replace(':', '', $key);
             $string .= "$spalte = $key, ";
 
         }
-        $string = rtrim($string,', ');
+        $string = rtrim($string, ', ');
 
         $sql = "UPDATE $this->tablename set $string where id = :id";
 
-        $this->query($sql,$data);
+        $this->query($sql, $data);
         return $this->findById($obj->getId());
     }
 
+    public function create(EntityInterface $entity): EntityInterface
+    {
+        $data = $entity->mapToArray();
+        unset($data[':id']);
+        $keys = array_keys($data);
+        $spalte = '';
+        $placeholder = '';
+        foreach ($keys as $key) {
+            if ($key === ':id') {
+                continue;
+            }
+            $spalte .= str_replace(':', '', $key) . ', ';
+            $placeholder .= "$key, ";
+        }
+        $spalte = rtrim($spalte, ', ');
+        $placeholder = rtrim($placeholder, ', ');
+        $sql = "INSERT INTO $this->tablename ( $spalte ) values ( $placeholder )";
+        $result = $this->query($sql, $data);
+        return $this->findById($result['id']);
+    }
 }

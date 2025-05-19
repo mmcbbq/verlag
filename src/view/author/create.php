@@ -3,7 +3,7 @@ spl_autoload_register(function ($className) {
     $className = str_replace('\\', '/', $className);
     $dirs = array_diff(scandir('../../'));
     foreach ($dirs as $dir) {
-        $fileName = stream_resolve_include_path( '../../'.$dir.'/'.$className . '.php');
+        $fileName = stream_resolve_include_path('../../' . $dir . '/' . $className . '.php');
         if ($fileName !== false) {
             include_once $fileName;
         }
@@ -14,7 +14,9 @@ spl_autoload_register(function ($className) {
 
 $repo = new AuthorRepository();
 $author = $repo->findById(2);
-$author->setFname('Donaldder 2');
+$author->setFname('New Create');
 
-$repo->update($author);
+$repo->create($author);
+
+
 

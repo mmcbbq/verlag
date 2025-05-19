@@ -7,6 +7,8 @@ include '../../Repository/BookRepository.php';
 $repo = new AuthorRepository();
 $author = $repo->findById(2);
 $bookrepo = new BookRepository();
+
+$data['author']
 ?>
 
 <!doctype html>

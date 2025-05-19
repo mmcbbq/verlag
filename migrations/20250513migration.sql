@@ -34,3 +34,7 @@ insert into book (isbn, publication_date, pages, title, price, book.category, ha
 VALUES ('978-0399594496', '2015-10-06', 400, 'Art of the Deal', 10.89, 'Blabla',false,2),
        ('9783865914125','2009-06-15',256,'Yes We Can',5.00, 'Speech', true,1)
 
+create TABLE user (
+    id int primary key auto_increment,
+    username varchar(255)
+);
