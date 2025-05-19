@@ -31,9 +31,7 @@ $book = $bookrepo->findById(1);
 <body>
 <?php
 
-echo '<pre>';
-var_dump($_SERVER);
-echo '</pre>';
+
 
 echo $book->getTitle();
 echo '<br>';

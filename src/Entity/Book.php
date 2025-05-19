@@ -23,18 +23,18 @@ class Book
      * @param DateTime $publicationDate
      * @param string $title
      */
-    public function __construct(string $category, bool $hardcover , string $isbn, int $pages, float $price, string $publicationDate, string $title, int $author_id,?int $id = null)
+    public function __construct($data)
     {
-        $this->category = $category;
-        $this->hardcover = $hardcover;
-        $this->id = $id;
-        $this->isbn = $isbn;
-        $this->pages = $pages;
-        $this->price = $price;
-        $this->publicationDate = new DateTime($publicationDate);
-        $this->title = $title;
+        $this->category = $data['category'];
+        $this->hardcover = $data['hardcover'];
+        $this->id = $data["id"] ?? null;
+        $this->isbn = $data["isbn"];
+        $this->pages = $data["pages"];
+        $this->price = $data["price"];
+        $this->publicationDate = new DateTime($data["publication_date"]);
+        $this->title = $data["title"];
         $repo = new AuthorRepository();
-        $this->author = $repo->findById($author_id);
+        $this->author = $repo->findById($data["author_id"]);
     }
 
     public function getIsbn(): string
@@ -46,7 +46,6 @@ class Book
     {
         $this->isbn = $isbn;
     }
-
     public function getAuthor(): Author
     {
         return $this->author;

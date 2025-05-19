@@ -2,48 +2,14 @@
 
 class BookRepository extends AbstractRepository
 {
+
+    protected string $tablename = 'Book';
+
     /**
      * @return Book[]
      */
-    public function findall(): array
-    {
-
-        $sql = 'SELECT * FROM book';
-        $result = $this->query($sql);
-        $return = [];
-        foreach ($result as $item) {
-            $return[] = new Book(
-                $item['category'],
-                $item['hardcover'],
-                $item['isbn'],
-                $item['pages'],
-                $item['price'],
-                $item['publication_date'],
-                $item['title'],
-                $item['author_id'],
-                $item['id']);
-        }
-        return $return;
-
-    }
 
 
-    public function findById(int $id)
-    {
-        $data = [':id'=>$id];
-        $sql = 'SELECT * FROM book where id = :id';
-        $item = $this->query($sql,$data)[0];
-        return new Book(
-            $item['category'],
-            $item['hardcover'],
-            $item['isbn'],
-            $item['pages'],
-            $item['price'],
-            $item['publication_date'],
-            $item['title'],
-            $item['author_id'],
-            $item['id']);
-    }
 
     public function create(Book $book): Book
     {
@@ -76,27 +42,8 @@ class BookRepository extends AbstractRepository
     }
 
 
-    public function update(Book $book):Book
-    {
-        $data = [':isbn'=>$book->getIsbn(),':publication_date'=>$book->getPublicationDate()->format('Y-m-d'),'pages'=>$book->getPages(),'title'=>$book->getTitle(),'price'=>$book->getPrice(),'category'=>$book->getCategory(),'hardcover'=>$book->isHardcover(),'author_id'=>$book->getAuthor()->getId(),'id'=>$book->getId()];
-
-        $sql = 'UPDATE book set isbn = :isbn, publication_date= :publication_date, pages = :pages, title = :title, price = :price, category =:category, hardcover= :hardcover, author_id = :author_id where id = :id';
-
-        $this->query($sql,$data);
-        return $this->findById($book->getId());
-    }
 
 
-
-    public function remove(Book $book):bool
-    {
-        $id = $book->getId();
-        $dbcon = $this->Dbcon();
-        $sql = "DELETE FROM book where id = :id";
-        $stm = $dbcon->prepare($sql);
-        $stm->bindParam(':id',$id);
-        return $stm->execute();
-    }
 
     /**
      * @param Author $author

@@ -17,13 +17,13 @@ class Author
      * @param int|null $id
      * @param string $lname
      */
-    public function __construct(string $bday, string $country, string $fname, string $lname, ?int $id =null)
+    public function __construct(array $data)
     {
-        $this->bday = new DateTime($bday);
-        $this->country = $country;
-        $this->fname = $fname;
-        $this->id = $id;
-        $this->lname = $lname;
+        $this->bday = new DateTime($data['bday']);
+        $this->country = $data['country'];
+        $this->fname = $data['fname'];
+        $this->id = $data['id'] ?? null;
+        $this->lname = $data['lname'];
         $bookrepo = new BookRepository();
         $this->books = $bookrepo->findByAuthor($this);
     }
@@ -85,8 +85,11 @@ class Author
     }
 
 
+    public function mapToArray():array
+    {
+        return [':fname'=> $this->getFname(),':lname'=>$this->getLname(),':bday'=>$this->getBday()->format('Y-m-d'),':country'=>$this->getCountry(),':id'=>$this->getId()];
 
-
+    }
 
 }
 

@@ -12,14 +12,13 @@ spl_autoload_register(function ($className) {
     }
 });
 
-$repo = new AuthorRepository();
-//$author = $repo->findById(2);
+//$repo = new AuthorRepository();
+////$author = $repo->findById(2);
 $bookrepo = new BookRepository();
 
-$book = new Book('sdffs',true,'sdafsdf',123,18.00,'2000-02-01','super',1,);
-$updateBook = $bookrepo->findById(4);
-$updateBook->setIsbn('2r-9-35729864590687345906');
-$books = $bookrepo->update($updateBook);
+//$book = new Book('sdffs',true,'sdafsdf',123,18.00,'2000-02-01','super',1,);
+$books = $bookrepo->findall();
+
 
 ?>
 

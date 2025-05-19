@@ -12,8 +12,8 @@ spl_autoload_register(function ($className) {
 });
 
 $repo = new AuthorRepository();
-$author = new Author('2000-12-12','USA','George','Bush');
-$repo->create($author)
+//$author = new Author('2000-12-12','USA','George','Bush');
+$authoren =  $repo->findall()
 ?>
 
 <!doctype html>
