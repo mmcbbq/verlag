@@ -9,16 +9,14 @@ class BookRepository extends AbstractRepository
      * @return Book[]
      */
 
-
-
     public function create(Book $book): Book
     {
         $data = [':isbn'=>$book->getIsbn(),
             ':publication_date'=>$book->getPublicationDate()->format('Y-m-d'),
-            'pages'=>$book->getPages(),'title'=>$book->getTitle(),
-            'price'=>$book->getPrice(),'category'=>$book->getCategory(),
-            'hardcover'=>$book->isHardcover(),
-            'author_id'=>$book->getAuthor()->getId()];
+            ':pages'=>$book->getPages(),'title'=>$book->getTitle(),
+            ':price'=>$book->getPrice(),'category'=>$book->getCategory(),
+            ':hardcover'=>$book->isHardcover(),
+            ':author_id'=>$book->getAuthor()->getId()];
 
         $sql = 'INSERT INTO book (
                   isbn,

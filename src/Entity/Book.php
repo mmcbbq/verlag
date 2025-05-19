@@ -1,6 +1,6 @@
 <?php
 
-class Book
+class Book implements EntityInterface
 {
 
     private ?int $id;
@@ -122,4 +122,16 @@ class Book
     }
 
 
+    public function mapToArray(): array
+    {
+        return [':isbn'=>$this->getIsbn(),
+            ':publication_date'=>$this->getPublicationDate()->format('Y-m-d'),
+            ':pages'=>$this->getPages(),
+            ':title'=>$this->getTitle(),
+            ':price'=>$this->getPrice(),
+            ':category'=>$this->getCategory(),
+            ':hardcover'=>$this->isHardcover(),
+            ':author_id'=>$this->getAuthor()->getId(),
+            ':id'=>$this->getId()];
+    }
 }

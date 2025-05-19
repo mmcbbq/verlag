@@ -61,14 +61,25 @@ abstract class AbstractRepository
 
 
 
-    public function update(Book $book):Book
+    public function update(EntityInterface $obj):EntityInterface
     {
-        $data = [':isbn'=>$book->getIsbn(),':publication_date'=>$book->getPublicationDate()->format('Y-m-d'),'pages'=>$book->getPages(),'title'=>$book->getTitle(),'price'=>$book->getPrice(),'category'=>$book->getCategory(),'hardcover'=>$book->isHardcover(),'author_id'=>$book->getAuthor()->getId(),'id'=>$book->getId()];
+        $data = $obj->mapToArray();
+        $keys = array_keys($data);
+        $string = ''; //':fname', ':lname' -> 'fname = :fname, lname = :lname'
+        foreach ($keys as $index=>$key) {
+            if ($key === ':id'){
+                continue;
+            }
+            $spalte = str_replace(':','',$key);
+            $string .= "$spalte = $key, ";
 
-        $sql = 'UPDATE book set isbn = :isbn, publication_date= :publication_date, pages = :pages, title = :title, price = :price, category =:category, hardcover= :hardcover, author_id = :author_id where id = :id';
+        }
+        $string = rtrim($string,', ');
+
+        $sql = "UPDATE $this->tablename set $string where id = :id";
 
         $this->query($sql,$data);
-        return $this->findById($book->getId());
+        return $this->findById($obj->getId());
     }
 
 }

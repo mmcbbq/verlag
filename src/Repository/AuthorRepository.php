@@ -5,18 +5,8 @@ class AuthorRepository extends AbstractRepository
 
     protected string $tablename = "Author";
 
-    /**
-     * @return Author
-     */
 
 
-
-    public function update(Author $author):Author
-    {
-        $sql = 'UPDATE author set fname=:fname, lname= :lname, bday = :bday, country = :country where id = :id';
-        $this->query($sql,$data);
-        return $this->findById($author->getId());
-    }
 
     public function create(Author $author):Author
     {

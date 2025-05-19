@@ -1,6 +1,6 @@
 <?php
 
-class Author
+class Author implements EntityInterface
 {
     private ?int $id;
     private string $fname;
