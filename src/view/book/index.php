@@ -1,25 +1,5 @@
 <?php
-
-spl_autoload_register(function ($className) {
-    $className = str_replace('\\', '/', $className);
-    $dirs = array_diff(scandir('../../'));
-    foreach ($dirs as $dir) {
-        $fileName = stream_resolve_include_path( '../../'.$dir.'/'.$className . '.php');
-        if ($fileName !== false) {
-            include_once $fileName;
-        }
-
-    }
-});
-
-//$repo = new AuthorRepository();
-////$author = $repo->findById(2);
-$bookrepo = new BookRepository();
-
-//$book = new Book('sdffs',true,'sdafsdf',123,18.00,'2000-02-01','super',1,);
-$books = $bookrepo->findall();
-
-
+$books = $data['books']
 ?>
 
 
@@ -34,7 +14,7 @@ $books = $bookrepo->findall();
 </head>
 <body>
 <?php
-$count =0;
+$count = 0;
 foreach ($books as $book) {
     if ($count % 2 == 0){
         $color = 'red';
@@ -46,6 +26,7 @@ foreach ($books as $book) {
     echo "<div style='background-color: $color'>";
     echo $book->getTitle();
     echo '<br>';
+    echo $book->getIsbn();
     echo $book->getAuthor()->getLname();
     echo '<br>';
     echo '<br>';

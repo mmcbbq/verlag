@@ -1,14 +1,6 @@
 <?php
-include '../../Repository/AbstractRepository.php';
-include '../../Entity/Author.php';
-include '../../Entity/Book.php';
-include '../../Repository/AuthorRepository.php';
-include '../../Repository/BookRepository.php';
-$repo = new AuthorRepository();
-$author = $repo->findById(2);
-$bookrepo = new BookRepository();
 
-$data['author']
+
 ?>
 
 <!doctype html>

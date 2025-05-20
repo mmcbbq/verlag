@@ -1,18 +1,17 @@
 <?php
+$book = $data['book'];
+?>
 
-spl_autoload_register(function ($className) {
-    $className = str_replace('\\', '/', $className);
-    $dirs = array_diff(scandir('../../'));
-    foreach ($dirs as $dir) {
-        $fileName = stream_resolve_include_path('../../' . $dir . '/' . $className . '.php');
-        if ($fileName !== false) {
-            include_once $fileName;
-        }
-
-    }
-});
-
-
-$repo = new BookRepository();
-$author = $repo->findById(4);
-$repo->remove($author);
+<!doctype html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport'
+          content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Document</title>
+</head>
+<body>
+<div>Buch geloescht <?php echo $book->getTitle() ?> </div>
+</body>
+</html>

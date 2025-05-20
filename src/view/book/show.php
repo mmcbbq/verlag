@@ -1,21 +1,5 @@
 <?php
-
-spl_autoload_register(function ($className) {
-$className = str_replace('\\', '/', $className);
-$dirs = array_diff(scandir('../../'));
-foreach ($dirs as $dir) {
-    $fileName = stream_resolve_include_path( '../../'.$dir.'/'.$className . '.php');
-    if ($fileName !== false) {
-        include_once $fileName;
-    }
-
-}});
-
-$repo = new AuthorRepository();
-//$author = $repo->findById(2);
-$bookrepo = new BookRepository();
-$book = $bookrepo->findById(1);
-
+$book = $data['book']
 ?>
 
 
@@ -38,6 +22,7 @@ echo '<br>';
 echo 'by ' .$book->getAuthor()->getLname();
 echo '<br>';
 echo 'erschienen ' .$book->getPublicationDate()->format('d-m-Y');
+echo 'Seiten Anzahl'.$book->getPages();
 ?>
 </body>
 </html>

@@ -26,7 +26,7 @@ class Book implements EntityInterface
     public function __construct($data)
     {
         $this->category = $data['category'];
-        $this->hardcover = $data['hardcover'];
+        $this->hardcover = $data['hardcover'] ?? false;
         $this->id = $data["id"] ?? null;
         $this->isbn = $data["isbn"];
         $this->pages = $data["pages"];
@@ -116,7 +116,7 @@ class Book implements EntityInterface
         $this->title = $title;
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
