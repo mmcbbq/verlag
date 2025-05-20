@@ -1,6 +1,6 @@
 <?php
 
-
+$author = $data['author']
 ?>
 
 <!doctype html>
@@ -19,9 +19,8 @@ echo $author->getFname();
 echo '</div>';
 
 echo '<div>';
-foreach ($author->getBooks() as $bookid){
-    $book = $bookrepo->findById($bookid);
-    echo '<div> '. $book->getTitle() .'</div>';
+foreach ($author->getBooksObj() as $item) {
+    echo $item->getTitle();
 }
 echo '</div>'
 ?>

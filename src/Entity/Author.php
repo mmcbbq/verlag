@@ -84,6 +84,16 @@ class Author implements EntityInterface
         $this->books = $books;
     }
 
+    public function getBooksObj()
+    {
+        $bookrepo = new BookRepository();
+        $books = [];
+        foreach ($this->getBooks() as $bookid){
+            $books[] = $bookrepo->findById($bookid);
+        }
+        return $books;
+    }
+
 
     public function mapToArray():array
     {
