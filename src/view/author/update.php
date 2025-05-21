@@ -1,8 +1,6 @@
 <?php
 $author = $data["author"];
 ?>
-
-
 <!doctype html>
 <html lang='en'>
 <head>
@@ -11,10 +9,8 @@ $author = $data["author"];
           content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'>
     <meta http-equiv='X-UA-Compatible' content='ie=edge'>
     <title>Document</title>
-
 </head>
 <body>
-
 <form action='index.php' method='post'>
     fname: <input type='text' name='fname' value='<?php echo $author->getFname() ?>'>
     lname: <input type='text' name='lname' value='<?php echo $author->getLname() ?>'>
@@ -23,9 +19,6 @@ $author = $data["author"];
     <input type='submit'>
 
 </form>
-
-
-
 </body>
 </html>
 
