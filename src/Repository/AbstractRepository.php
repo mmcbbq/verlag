@@ -81,9 +81,7 @@ abstract class AbstractRepository
 
         }
         $string = rtrim($string, ', ');
-
         $sql = "UPDATE $this->tablename set $string where id = :id";
-
         $this->query($sql, $data);
         return $this->findById($obj->getId());
     }
