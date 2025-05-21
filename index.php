@@ -11,8 +11,8 @@ spl_autoload_register(function ($className){
 });
 //$controller = new BookController();
 $controller = new AuthorController();
-//$controller->index();
-$controller->show(2);
+$controller->index();
+//$controller->show(2);
 //$controller->delete(2);
 //$controller->new();
 //$controller->edit(5);

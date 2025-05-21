@@ -12,11 +12,10 @@ $author = $data['author']
     <meta http-equiv='X-UA-Compatible' content='ie=edge'>
     <title>Document</title>
 </head>
-<body>
+<body style='background-color: deepskyblue'>
 <?php
 echo '<div>';
-echo 'Vorname: '.$author->getFname().'<br>';
-echo 'Nachname: '.$author->getLname().'<br>';
+echo $author->getFname().' '.$author->getLname().'<br>';
 echo '</div>';
 
 echo '<div>';
