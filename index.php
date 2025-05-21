@@ -9,13 +9,31 @@ spl_autoload_register(function ($className){
         }
     }
 });
-//$controller = new BookController();
-$controller = new AuthorController();
-$controller->index();
-//$controller->show(2);
-//$controller->delete(2);
-//$controller->new();
-//$controller->edit(5);
+
+$url = explode('/',str_ireplace('/verlag/','',$_SERVER['REQUEST_URI']));
+$controllerName = ucfirst($url[0]).'Controller';
+$method = $url[1];
+
+$index = [$url[2]] ?? [];
+
+var_dump($index);
+
+$controller = new $controllerName;
+call_user_func_array([$controller,$method],$index);
+//var_dump($controller);
+
+
+
+
+//"author/index/"
+//"author/show/1"
+//"author/delete/1"
+//"author/edit/1"
+//"author/new/"
+
+
+
+
 
 
 
