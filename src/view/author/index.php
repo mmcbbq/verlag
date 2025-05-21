@@ -46,8 +46,6 @@ $authoren = $data['authors']
 </div></div>";
 
         }
-
-
         echo '<div  style="border: 2px red solid; width: 200px">';
         echo $author->getFname() . ' ' . $author->getLname() . '<br>';
         echo 'alter in Tagen' . date_diff($author->getBday(), new DateTime('now'))->format('%a') . '<br>';
