@@ -15,12 +15,15 @@ $author = $data['author']
 <body>
 <?php
 echo '<div>';
-echo $author->getFname();
+echo 'Vorname: '.$author->getFname().'<br>';
+echo 'Nachname: '.$author->getLname().'<br>';
 echo '</div>';
 
 echo '<div>';
+echo 'Books:<br>';
 foreach ($author->getBooksObj() as $item) {
     echo $item->getTitle();
+    echo '<br>';
 }
 echo '</div>'
 ?>
