@@ -1,4 +1,5 @@
 <?php
+require_once 'vendor/autoload.php';
 // zum Einbinden der Klassen
 spl_autoload_register(function ($className){
     //echo $className; die Klasse die gesucht wird

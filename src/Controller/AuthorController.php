@@ -5,9 +5,14 @@ class AuthorController extends AbstractController
 
     public function index(): void
     {
+
+        $loader =new \Twig\Loader\FilesystemLoader('src\view\twig\author');
+        $twig = new \Twig\Environment($loader);
+
         $AuthorRepository = new AuthorRepository();
         $data = ['authors' => $AuthorRepository->findall()];
-        include 'src/view/author/index.php';
+        echo $twig->render('index.html.twig',$data);
+//        include 'src/view/author/in  dex.php';
     }
 
     public function show(int $id): void
