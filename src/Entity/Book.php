@@ -12,6 +12,7 @@ class Book implements EntityInterface
     private string $category;
     private bool $hardcover;
     private Author $author;
+    private int $author_id;
 
     /**
      * @param string $category
@@ -33,8 +34,9 @@ class Book implements EntityInterface
         $this->price = $data["price"];
         $this->publicationDate = new DateTime($data["publication_date"]);
         $this->title = $data["title"];
-        $repo = new AuthorRepository();
-        $this->author = $repo->findById($data["author_id"]);
+        $this->author_id = $data["author_id"];
+//        $repo = new AuthorRepository();
+//        $this->author = $repo->findById($data["author_id"]);
     }
 
     public function getIsbn(): string
@@ -48,6 +50,9 @@ class Book implements EntityInterface
     }
     public function getAuthor(): Author
     {
+
+        $repo = new AuthorRepository();
+        $this->author = $repo->findById($this->author_id);
         return $this->author;
     }
 

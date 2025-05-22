@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-<form action='index.php' method='post'>
+<form  method='post'>
     fname: <input type='text' name='fname'>
     lname: <input type='text' name='lname'>
     bday: <input type='date' name='bday'>

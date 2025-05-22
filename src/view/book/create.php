@@ -12,7 +12,7 @@ $authoren = $data['authoren'];
     <title>Document</title>
 </head>
 <body>
-<form action='index.php' method='post'>
+<form  method='post'>
     isbn: <input type='text' name='isbn'><br>
     title: <input type='text' name='title'><br>
     category: <input type='text' name='category'><br>

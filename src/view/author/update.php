@@ -11,7 +11,7 @@ $author = $data["author"];
     <title>Document</title>
 </head>
 <body>
-<form action='index.php' method='post'>
+<form  method='post'>
     fname: <input type='text' name='fname' value='<?php echo $author->getFname() ?>'>
     lname: <input type='text' name='lname' value='<?php echo $author->getLname() ?>'>
     bday: <input type='date' name='bday' value='<?php echo $author->getBday()->format('Y-m-d') ?>'>

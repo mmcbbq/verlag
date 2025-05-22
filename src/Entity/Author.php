@@ -24,8 +24,8 @@ class Author implements EntityInterface
         $this->fname = $data['fname'];
         $this->id = $data['id'] ?? null;
         $this->lname = $data['lname'];
-        $bookrepo = new BookRepository();
-        $this->books = $bookrepo->findByAuthor($this);
+//        $bookrepo = new BookRepository();
+//        $this->books = $bookrepo->findByAuthor($this);
     }
 
     public function getBday(): DateTime
@@ -76,6 +76,10 @@ class Author implements EntityInterface
 
     public function getBooks(): array
     {
+        $bookrepo = new BookRepository();
+        $this->books = $bookrepo->findByAuthor($this);
+
+
         return $this->books;
     }
 
@@ -88,16 +92,16 @@ class Author implements EntityInterface
     {
         $bookrepo = new BookRepository();
         $books = [];
-        foreach ($this->getBooks() as $bookid){
+        foreach ($this->getBooks() as $bookid) {
             $books[] = $bookrepo->findById($bookid);
         }
         return $books;
     }
 
 
-    public function mapToArray():array
+    public function mapToArray(): array
     {
-        return [':fname'=> $this->getFname(),':lname'=>$this->getLname(),':bday'=>$this->getBday()->format('Y-m-d'),':country'=>$this->getCountry(),':id'=>$this->getId()];
+        return [':fname' => $this->getFname(), ':lname' => $this->getLname(), ':bday' => $this->getBday()->format('Y-m-d'), ':country' => $this->getCountry(), ':id' => $this->getId()];
 
     }
 

@@ -18,7 +18,7 @@ if ($book->isHardcover()){
     <title>Document</title>
 </head>
 <body>
-<form action='index.php' method='post'>
+<form  method='post'>
     isbn: <input type='text' name='isbn' value='<?php echo $book->getIsbn() ?>'><br>
     title: <input type='text' name='title' value='<?php echo $book->getTitle() ?>' ><br>
     category: <input type='text' name='category' value='<?php echo $book->getCategory() ?>'><br>

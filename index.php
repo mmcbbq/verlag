@@ -10,20 +10,18 @@ spl_autoload_register(function ($className){
     }
 });
 
+
+
+
 $url = explode('/',str_ireplace('/verlag/','',$_SERVER['REQUEST_URI']));
-$controllerName = ucfirst($url[0]).'Controller';
+$controllerName = $url[0].'Controller';
 $method = $url[1];
+$index = [(int)$url[2]] ?? [];
 
-$index = [$url[2]] ?? [];
-
-var_dump($index);
 
 $controller = new $controllerName;
 call_user_func_array([$controller,$method],$index);
 //var_dump($controller);
-
-
-
 
 //"author/index/"
 //"author/show/1"
