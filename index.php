@@ -1,4 +1,9 @@
 <?php
+
+require_once 'vendor/autoload.php';
+
+
+
 // Automatisches Laden von Klassen mit spl_autoload_register
 spl_autoload_register(function ($className) {
     // Definieren der Ordner, in denen nach Klassen gesucht werden soll
@@ -29,18 +34,18 @@ $index = isset($url[2]) ? [$url[2]] : [];
 
 // Erstellen einer Instanz des Controllers
 $controller = new $controllerName;
-if (!method_exists($controller, $method)) {
-    $controller = new _404Controller();
-    $method = 'index';
-} else {
-    $reflection = new ReflectionClass($controller);
-    $anzahlparams = $reflection->getMethod($method)->getNumberOfParameters();
-    if (($anzahlparams > 0 and !$index) or !is_numeric($index)){
-        $controller = new _404Controller();
-        $method = 'index';
-    }
-
-};
+//if (!method_exists($controller, $method)) {
+//    $controller = new _404Controller();
+//    $method = 'index';
+//} else {
+//    $reflection = new ReflectionClass($controller);
+//    $anzahlparams = $reflection->getMethod($method)->getNumberOfParameters();
+//    if (($anzahlparams > 0 and !$index) or !is_numeric($index)){
+//        $controller = new _404Controller();
+//        $method = 'index';
+//    }
+//
+//};
 // Aufruf der Methode des Controllers mit dem gegebenen Parameter
 call_user_func_array([$controller, $method], $index);
 

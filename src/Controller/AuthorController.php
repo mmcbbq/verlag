@@ -6,8 +6,19 @@ class AuthorController extends AbstractController
     public function index(): void
     {
         $AuthorRepository = new AuthorRepository();
+        $loader = new \Twig\Loader\FilesystemLoader('src/view/author');
+        $twig = new \Twig\Environment($loader);
+
         $data = ['authors' => $AuthorRepository->findall()];
-        include 'src/view/author/index.php';
+
+
+        echo $twig->render('index.html.twig', $data);
+
+
+
+
+
+//        include 'src/view/author/index.php';
     }
 
     public function show(int $id): void

@@ -1,0 +1,11 @@
+
+{% extends "base.html.twig" %}
+{% block body %}
+{% for author in authors %}
+    <div style='background-color: deepskyblue'>
+      {{ author.fname }} <br>
+        {{ author.lname }}<br>
+        {{ author.bday.format('y-m-d') }}
+    </div>
+{% endfor %}
+{% endblock %}
