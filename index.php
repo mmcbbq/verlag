@@ -3,7 +3,6 @@
 require_once 'vendor/autoload.php';
 
 
-
 // Automatisches Laden von Klassen mit spl_autoload_register
 spl_autoload_register(function ($className) {
     // Definieren der Ordner, in denen nach Klassen gesucht werden soll
@@ -30,22 +29,31 @@ $controllerName = file_exists("src/Controller/$controllerName.php") ? $controlle
 $method = $url[1] ?? 'index';
 
 // Drittes URL-Segment als Parameter übergeben (z.B. eine ID), standardmäßig ein leerer Array
-$index = isset($url[2]) ? [$url[2]] : [];
+
+
 
 // Erstellen einer Instanz des Controllers
 $controller = new $controllerName;
-//if (!method_exists($controller, $method)) {
-//    $controller = new _404Controller();
-//    $method = 'index';
-//} else {
-//    $reflection = new ReflectionClass($controller);
-//    $anzahlparams = $reflection->getMethod($method)->getNumberOfParameters();
-//    if (($anzahlparams > 0 and !$index) or !is_numeric($index)){
-//        $controller = new _404Controller();
-//        $method = 'index';
-//    }
+if (!method_exists($controller, $method)) {
+    $controller = new _404Controller();
+    $method = 'index';
+} else {
+    $reflection = new ReflectionClass($controller);
+    $anzahlparams = $reflection->getMethod($method)->getNumberOfParameters();
+    if (isset($url[2]) and is_numeric($url[2])) {
+        $index = [$url[2]];
+    }else{
+        $index = [];
+    }
+
+
+    if (($anzahlparams > 0 and !$index)) {
+        $controller = new _404Controller();
+        $method = 'index';
+        $index = [];
+    }
 //
-//};
+};
 // Aufruf der Methode des Controllers mit dem gegebenen Parameter
 call_user_func_array([$controller, $method], $index);
 
