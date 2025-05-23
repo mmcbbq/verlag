@@ -1,10 +1,9 @@
 <?php
-// Automatisches Laden von Klassen mit spl_autoload_register
-spl_autoload_register(function ($className) {
-    // Definieren der Ordner, in denen nach Klassen gesucht werden soll
-    $ordner = ['Entity', 'Repository', 'Controller'];
-
-    // Durchlaufen der definierten Ordner
+require_once 'vendor/autoload.php';
+// zum Einbinden der Klassen
+spl_autoload_register(function ($className){
+    //echo $className; die Klasse die gesucht wird
+    $ordner = ['Entity','Repository','Controller']; // die Ordner in den gesucht werden soll
     foreach ($ordner as $od) {
         // Prüfen, ob die Datei für die gesuchte Klasse im aktuellen Ordner existiert
         if (file_exists("src/$od/$className.php")) {
